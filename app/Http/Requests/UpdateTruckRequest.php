@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTruckRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class UpdateTruckRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +24,12 @@ class UpdateTruckRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'truck_plate' => [
+                'required',
+                'string',
+                'max:32',
+                Rule::unique('trucks', 'truck_plate')->ignore($this->route('truck')),
+            ],
         ];
     }
 }

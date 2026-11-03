@@ -2,63 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreColdTripRequest;
+use App\Http\Requests\UpdateColdTripRequest;
+use App\Models\ColdTrip;
+use App\Services\ColdTripService;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ColdTripController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): Response
     {
-        //
+        return Inertia::render('cold-trips/index', [
+            'trips' => ColdTrip::query()
+                ->with(['truck', 'driver', 'cargoType', 'departureHub', 'destinationHub'])
+                ->latest('dispatch_time')
+                ->paginate(10)
+                ->withQueryString(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): Response
     {
-        //
+        return Inertia::render('cold-trips/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreColdTripRequest $request, ColdTripService $service): RedirectResponse
     {
-        //
+        $service->create($request->validated());
+
+        return to_route('cold-trips.index')->with('success', 'Cold trip created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(ColdTrip $coldTrip): Response
     {
-        //
+        return Inertia::render('cold-trips/show', [
+            'trip' => $coldTrip->load(['truck', 'driver', 'cargoType', 'departureHub', 'destinationHub']),
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(ColdTrip $coldTrip): Response
     {
-        //
+        return Inertia::render('cold-trips/edit', [
+            'trip' => $coldTrip->load(['truck', 'driver', 'cargoType', 'departureHub', 'destinationHub']),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateColdTripRequest $request, ColdTrip $coldTrip, ColdTripService $service): RedirectResponse
     {
-        //
+        $service->update($coldTrip, $request->validated());
+
+        return to_route('cold-trips.index')->with('success', 'Cold trip updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(ColdTrip $coldTrip): RedirectResponse
     {
-        //
+        $coldTrip->delete();
+
+        return to_route('cold-trips.index')->with('success', 'Cold trip deleted successfully.');
     }
 }

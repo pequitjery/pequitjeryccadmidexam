@@ -12,7 +12,7 @@ class StoreTruckRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class StoreTruckRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'truck_plate' => ['required', 'string', 'max:32', 'unique:trucks,truck_plate'],
         ];
     }
 }

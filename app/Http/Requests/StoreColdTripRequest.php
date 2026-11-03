@@ -12,7 +12,7 @@ class StoreColdTripRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,16 @@ class StoreColdTripRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'truck_plate' => ['required', 'string', 'max:32'],
+            'driver_name' => ['required', 'string', 'max:255'],
+            'cargo_type' => ['required', 'string', 'max:255'],
+            'departure_hub' => ['required', 'string', 'max:255'],
+            'destination_hub' => ['required', 'string', 'max:255', 'different:departure_hub'],
+            'required_temp_c' => ['required', 'numeric', 'between:-100,100'],
+            'min_logged_temp' => ['nullable', 'numeric', 'between:-100,100'],
+            'max_logged_temp' => ['nullable', 'numeric', 'between:-100,100'],
+            'dispatch_time' => ['required', 'date'],
+            'arrival_time' => ['nullable', 'date', 'after_or_equal:dispatch_time'],
         ];
     }
 }
