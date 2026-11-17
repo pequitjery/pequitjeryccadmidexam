@@ -17,11 +17,13 @@ class DashboardController extends Controller
         return Inertia::render('dashboard', [
             'totalTrucks' => Truck::count(),
             'totalTrips' => (clone $trips)->count(),
-            'compliantTrips' => (clone $trips)->where('temp_compliance_status', 'Compliant')->count(),
-            'temperatureAlerts' => (clone $trips)->where('temp_compliance_status', 'Temperature Excursion Alert')->count(),
+            'compliantTrips' => (clone $trips)->where('temp_compliance_status', 'Accept')->count(),
+            'temperatureAlerts' => (clone $trips)
+                ->whereRaw('max_logged_temp IS NOT NULL AND required_temp_c IS NOT NULL AND max_logged_temp > required_temp_c + 2')
+                ->count(),
             'pendingTrips' => (clone $trips)->where('temp_compliance_status', 'Pending')->count(),
             'alertTrips' => (clone $trips)
-                ->where('temp_compliance_status', 'Temperature Excursion Alert')
+                ->whereRaw('max_logged_temp IS NOT NULL AND required_temp_c IS NOT NULL AND max_logged_temp > required_temp_c + 2')
                 ->latest('dispatch_time')
                 ->take(5)
                 ->get(),

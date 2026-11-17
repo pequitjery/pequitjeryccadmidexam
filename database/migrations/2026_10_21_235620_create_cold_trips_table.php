@@ -11,6 +11,17 @@ return new class extends Migration
     {
         Schema::create('cold_trips', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('truck_id')->nullable()->constrained()->restrictOnDelete();
+            $table->foreignId('driver_id')->nullable()->constrained()->restrictOnDelete();
+            $table->foreignId('cargo_type_id')->nullable()->constrained()->restrictOnDelete();
+            $table->foreignId('departure_hub_id')->nullable()->constrained('hubs')->restrictOnDelete();
+            $table->foreignId('destination_hub_id')->nullable()->constrained('hubs')->restrictOnDelete();
+            $table->decimal('required_temp_c', 6, 2)->nullable();
+            $table->decimal('min_logged_temp', 6, 2)->nullable();
+            $table->decimal('max_logged_temp', 6, 2)->nullable();
+            $table->dateTime('dispatch_time')->nullable();
+            $table->dateTime('arrival_time')->nullable();
+            $table->string('temp_compliance_status')->default('Pending');
             $table->timestamps();
         });
     }

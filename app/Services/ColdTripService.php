@@ -26,7 +26,7 @@ class ColdTripService
         $required = (float) $data['required_temp_c'];
         $data['temp_compliance_status'] = $max === null
             ? 'Pending'
-            : ((float) $max > $required + 2 ? 'Temperature Excursion Alert' : 'Compliant');
+            : ((float) $max > $required + 2 ? 'Pending' : 'Accept');
 
         return $data;
     }

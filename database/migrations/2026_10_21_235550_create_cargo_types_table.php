@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('cargo_types', function (Blueprint $table) {
             $table->id();
+            $table->string('cargo_type')->unique();
             $table->timestamps();
         });
     }

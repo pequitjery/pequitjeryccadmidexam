@@ -147,6 +147,17 @@
     --sidebar-ring: hsl(217.2, 91.2%, 59.8%);
 }
 
+[data-sidebar='sidebar'] {
+    --sidebar-background: hsl(0, 0%, 0%);
+    --sidebar-foreground: hsl(0, 0%, 95%);
+    --sidebar-primary: hsl(0, 0%, 100%);
+    --sidebar-primary-foreground: hsl(0, 0%, 0%);
+    --sidebar-accent: hsl(0, 0%, 10%);
+    --sidebar-accent-foreground: hsl(0, 0%, 100%);
+    --sidebar-border: hsl(0, 0%, 13%);
+    --sidebar-ring: hsl(0, 0%, 75%);
+}
+
 @layer base {
     * {
         @apply border-border;

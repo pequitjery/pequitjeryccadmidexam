@@ -22,7 +22,12 @@ export function AppShell({ children, variant = 'header' }: AppShellProps) {
     }
 
     return (
-        <SidebarProvider defaultOpen={isOpen} open={isOpen} onOpenChange={handleSidebarChange}>
+        <SidebarProvider
+            defaultOpen={isOpen}
+            open={isOpen}
+            onOpenChange={handleSidebarChange}
+            style={{ '--sidebar-width': '21rem' } as React.CSSProperties}
+        >
             {children}
         </SidebarProvider>
     );

@@ -86,15 +86,7 @@ export default function ColdTripsIndex({ trips, flash }: Props) {
                                                 <span className="text-muted-foreground">Max {trip.max_logged_temp ?? '—'}°C</span>
                                             </td>
                                             <td className="p-3">
-                                                <Badge
-                                                    variant={
-                                                        trip.temp_compliance_status === 'Compliant'
-                                                            ? 'default'
-                                                            : trip.temp_compliance_status === 'Pending'
-                                                              ? 'secondary'
-                                                              : 'destructive'
-                                                    }
-                                                >
+                                                <Badge variant={trip.temp_compliance_status === 'Accept' ? 'default' : 'secondary'}>
                                                     {trip.temp_compliance_status}
                                                 </Badge>
                                             </td>
@@ -106,7 +98,12 @@ export default function ColdTripsIndex({ trips, flash }: Props) {
                                                     <Button variant="outline" size="sm" asChild>
                                                         <Link href={`/cold-trips/${trip.id}/edit`}>Edit</Link>
                                                     </Button>
-                                                    <Button variant="destructive" size="sm" onClick={() => router.delete(`/cold-trips/${trip.id}`)}>
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        className="border-red-500 text-red-600 hover:bg-red-50 hover:text-red-700"
+                                                        onClick={() => router.delete(`/cold-trips/${trip.id}`)}
+                                                    >
                                                         Delete
                                                     </Button>
                                                 </div>

@@ -129,11 +129,11 @@
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-green-500">
-                <p class="text-slate-500 text-sm">Compliant Trips</p>
+                <p class="text-slate-500 text-sm">Accepted Trips</p>
                 <h3 class="text-3xl font-bold text-green-600 mt-2">
                     {{ $compliantTrips }}
                 </h3>
-                <p class="text-xs text-slate-400 mt-2">Within temperature limit</p>
+                <p class="text-xs text-slate-400 mt-2">Within the accepted range</p>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-red-500">
@@ -306,20 +306,12 @@
 
                                 <td class="p-3">
 
-                                    @if ($trip->temp_compliance_status === 'Compliant')
+                                    @if ($trip->temp_compliance_status === 'Accept')
 
                                         <span class="bg-green-100 text-green-700
                                                      px-3 py-1 rounded-full
                                                      text-xs font-semibold">
-                                            Compliant
-                                        </span>
-
-                                    @elseif ($trip->temp_compliance_status === 'Temperature Excursion Alert')
-
-                                        <span class="bg-red-100 text-red-700
-                                                     px-3 py-1 rounded-full
-                                                     text-xs font-semibold">
-                                            Alert
+                                            Accept
                                         </span>
 
                                     @else

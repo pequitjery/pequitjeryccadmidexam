@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('trucks', function (Blueprint $table) {
             $table->id();
+            $table->string('truck_plate')->unique();
             $table->timestamps();
         });
     }

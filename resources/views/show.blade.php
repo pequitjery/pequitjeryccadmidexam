@@ -16,15 +16,15 @@
     <p><strong>Destination:</strong> {{ $trip->destinationHub->hub_name }}</p>
 
     <p><strong>Required Temperature:</strong>
-        {{ $trip->required_temp_c }} °C
+        {{ str_replace('.', '', (string) $trip->required_temp_c) }} °C
     </p>
 
     <p><strong>Minimum Temperature:</strong>
-        {{ $trip->min_logged_temp ?? 'No reading' }} °C
+        {{ $trip->min_logged_temp !== null ? str_replace('.', '', (string) $trip->min_logged_temp) : 'No reading' }} °C
     </p>
 
     <p><strong>Maximum Temperature:</strong>
-        {{ $trip->max_logged_temp ?? 'No reading' }} °C
+        {{ $trip->max_logged_temp !== null ? str_replace('.', '', (string) $trip->max_logged_temp) : 'No reading' }} °C
     </p>
 
     <p><strong>Dispatch:</strong>

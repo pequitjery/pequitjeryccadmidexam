@@ -27,7 +27,7 @@ class ColdTripTest extends TestCase
         $trip = ColdTrip::with(['truck', 'driver', 'cargoType', 'departureHub', 'destinationHub'])->firstOrFail();
 
         $this->assertSame('ABC123', $trip->truck->truck_plate);
-        $this->assertSame('Compliant', $trip->temp_compliance_status);
+        $this->assertSame('Accept', $trip->temp_compliance_status);
         $this->assertSame('Fresh produce', $trip->cargoType->cargo_type);
     }
 
@@ -58,7 +58,7 @@ class ColdTripTest extends TestCase
 
         $trip->refresh();
         $this->assertSame('XYZ789', $trip->truck->truck_plate);
-        $this->assertSame('Temperature Excursion Alert', $trip->temp_compliance_status);
+        $this->assertSame('Pending', $trip->temp_compliance_status);
 
         $this->delete(route('cold-trips.destroy', $trip))
             ->assertRedirect(route('cold-trips.index'));

@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('hubs', function (Blueprint $table) {
             $table->id();
+            $table->string('hub_name')->unique();
             $table->timestamps();
         });
     }

@@ -11,8 +11,9 @@ class Truck extends Model
 
     public function setTruckPlateAttribute($value): void
     {
-        $this->attributes['truck_plate'] =
-            strtoupper(trim($value));
+        $this->attributes['truck_plate'] = $value === null
+            ? null
+            : strtoupper(trim((string) $value));
     }
 
     public function coldTrips(): HasMany

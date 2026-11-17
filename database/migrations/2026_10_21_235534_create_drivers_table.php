@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->string('driver_name')->unique();
             $table->timestamps();
         });
     }

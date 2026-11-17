@@ -81,8 +81,9 @@ export default function TrucksIndex({ trucks, flash }: Props) {
                                                         <Link href={`/trucks/${truck.id}/edit`}>Edit</Link>
                                                     </Button>
                                                     <Button
-                                                        variant="destructive"
+                                                        variant="outline"
                                                         size="sm"
+                                                        className="border-red-500 text-red-600 hover:bg-red-50 hover:text-red-700"
                                                         disabled={truck.cold_trips_count > 0}
                                                         title={truck.cold_trips_count ? 'Cannot delete a truck with cold trips' : undefined}
                                                         onClick={() => {

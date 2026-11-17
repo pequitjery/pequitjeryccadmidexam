@@ -36,11 +36,9 @@ export default function ShowColdTrip({ trip }: { trip: Trip }) {
                         <CardTitle>Cold trip #{trip.id}</CardTitle>
                         <Badge
                             variant={
-                                trip.temp_compliance_status === 'Compliant'
+                                trip.temp_compliance_status === 'Accept'
                                     ? 'default'
-                                    : trip.temp_compliance_status === 'Pending'
-                                      ? 'secondary'
-                                      : 'destructive'
+                                    : 'secondary'
                             }
                         >
                             {trip.temp_compliance_status}
